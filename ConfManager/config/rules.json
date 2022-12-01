@@ -1,0 +1,62 @@
+{
+    "triggers": [
+        {
+            "id": "basicHttpTrigger",
+            "type": [
+                "http"
+            ],
+            "address": "trigger",
+            "port": 3000,
+            "container": "expresshttptrigger"
+        }
+    ],
+    "fn": [
+        {
+            "id": "scaler",
+            "container": "ScalerJs"
+        },
+        {
+            "id": "dummy",
+            "container": "dummy"
+        },
+        {
+            "id": "invoker",
+            "container": "invoker"
+        },
+        {
+            "id": "ubuntu",
+            "container": "ubuntu",
+            "envvar": [
+                "CIAO=miao",
+                "HOME=sweet"
+            ]
+        }
+    ],
+    "scalers": [
+        {
+            "id": "basicScaler",
+            "type": [
+                "http"
+            ],
+            "address": "scaler",
+            "container": "ScalerJs"
+        }
+    ],
+    "pipelines": [
+        {
+            "id": "dummypipe",
+            "trigger": "basicHttpTrigger",
+            "fn": "invoker",
+            "scaler": {
+                "id": "basicScaler",
+                "reschedulingms": 500
+            },
+            "medium": "nats",
+            "topic": "dummy",
+            "requestxc": 10,
+            "threshold": 10,
+            "cntupperbound": 100,
+            "group": "default"
+        }
+    ]
+}

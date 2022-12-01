@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  h1= title
+  p #{title}
+  div 
+    form(action="/function/#{id}", method="post") 
+      div.input
+        span.label trigger id
+        input(type="text", name="triggers.id")
+      div.input
+        span.label container
+        input(type="text", name="container")
+      div.input
+        span.label trigger type 
+        input(type="text", name="trigger.type")
+      div.input
+        span.label trigger http serving path 
+        input(type="text", name="trigger.path")
+      div.input
+        span.label trigger container
+        input(type="text", name="trigger.container")
+      div.input
+        span.label topic
+        input(type="text", name="topic")
+      div.input
+        span.label group
+        input(type="text", name="group")
+      div.input
+        span.label request handable for each container
+        input(type="text", name="scaling.requestxc")
+      div.input
+        span.label scaling threshold
+        input(type="text", name="scaling.threshold")
+      div.input
+        span.label max number of container
+        input(type="text", name="scaling.cntupperbound")
+      div.input
+        span.label scaler rescheduling ms
+        input(type="text", name="scaling.rescheduling")
+      div.input
+        span.label sclaer container
+        input(type="text", name="scaling.container")
+      input(type="submit", value="add")
